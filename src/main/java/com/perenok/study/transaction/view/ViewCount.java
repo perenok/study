@@ -1,12 +1,14 @@
 package com.perenok.study.transaction.view;
 
-import com.perenok.study.transaction.account.Account;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 @Getter
@@ -17,9 +19,6 @@ public class ViewCount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @OneToOne(mappedBy = "view_count")
-    private Account Account;
 
     private Long count;
 }
