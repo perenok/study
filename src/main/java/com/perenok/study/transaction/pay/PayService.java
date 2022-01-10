@@ -18,21 +18,21 @@ public class PayService {
     private final AccountService accountService;
     private final PayRepository payRepository;
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional
     public PayResponse create(PayRequest request) {
         log.info("currentTransactionName : {}", TransactionSynchronizationManager.getCurrentTransactionName());
 
         return PayResponse.create(payRepository.save(request.toEntity()));
     }
 
-    @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
+    @Transactional(readOnly = true)
     public PayResponse show(Long id) {
         log.info("currentTransactionName : {}", TransactionSynchronizationManager.getCurrentTransactionName());
 
         return PayResponse.create(payRepository.findById(id).orElseThrow());
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void transfer(TransferRequest request) {
         log.info("currentTransactionName : {}", TransactionSynchronizationManager.getCurrentTransactionName());
 

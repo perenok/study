@@ -3,6 +3,7 @@ package com.perenok.study.transaction.account;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
@@ -13,8 +14,10 @@ public class AccountService {
 
     private final AccountRepository accountRepository;
 
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public AccountResponse create(AccountRequest request) {
+        log.info("currentTransactionName : {}", TransactionSynchronizationManager.getCurrentTransactionName());
+
         Account account = request.toEntity();
         return AccountResponse.create(accountRepository.save(account));
     }
