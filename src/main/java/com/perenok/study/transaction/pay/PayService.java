@@ -32,7 +32,7 @@ public class PayService {
         return PayResponse.create(payRepository.findById(id).orElseThrow());
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional
     public void transfer(TransferRequest request) {
         log.info("currentTransactionName : {}", TransactionSynchronizationManager.getCurrentTransactionName());
 
